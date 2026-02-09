@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://kl5xwu0xdkc5"]
+
+[ext_resource type="Script" uid="uid://dqmx66n3w8sqa" path="res://characters/common/cameras/script_camera_pivot.gd" id="1_gittf"]
+[ext_resource type="Script" uid="uid://wuhlw1gwfyeu" path="res://characters/common/cameras/script_camera_arm.gd" id="2_dfuhs"]
+[ext_resource type="Script" uid="uid://jwihjuorx7wi" path="res://characters/common/cameras/script_camera_character.gd" id="2_nm8u2"]
+
+[node name="FirstPersonPivot" type="Node3D" unique_id=2019030405]
+script = ExtResource("1_gittf")
+unlocked = true
+tilt_limit = 1.0
+turn_limit = 0.6
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1400417480]
+collision_mask = 0
+spring_length = 0.0
+script = ExtResource("2_dfuhs")
+min_length = 0.0
+default_spring_length = 0.0
+max_length = 0.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=2109793745]
+script = ExtResource("2_nm8u2")
+
+[node name="Timer" type="Timer" parent="." unique_id=2038688853]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

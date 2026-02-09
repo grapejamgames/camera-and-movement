@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dqiqqj8ej2n6x"]
+
+[ext_resource type="Script" uid="uid://uskcp0dha05w" path="res://characters/player/script_player.gd" id="1_kkcny"]
+[ext_resource type="PackedScene" uid="uid://h4dd4crx4f04" path="res://characters/common/default_character/scene_character_default.tscn" id="1_tiqdv"]
+[ext_resource type="Material" uid="uid://daxs1jwyyh3d1" path="res://characters/player/material_character_player.material" id="2_arwsc"]
+[ext_resource type="Script" uid="uid://0kbu5wegcp" path="res://characters/player/controls/script_controls_chracter.gd" id="2_evjiv"]
+[ext_resource type="Script" uid="uid://b6u1lsdmvom3w" path="res://characters/player/controls/script_controls_camera.gd" id="5_yl12s"]
+
+[node name="Player" type="Node3D" unique_id=535323872]
+script = ExtResource("1_kkcny")
+
+[node name="Character" parent="." unique_id=1838438385 instance=ExtResource("1_tiqdv")]
+
+[node name="MeshInstance3D" parent="Character" index="2" unique_id=1311074984]
+surface_material_override/0 = ExtResource("2_arwsc")
+
+[node name="Controls" type="Node3D" parent="." unique_id=1859132922]
+
+[node name="ControlsCharacter" type="Node3D" parent="Controls" unique_id=694918035]
+script = ExtResource("2_evjiv")
+
+[node name="FirstPerson" type="Node3D" parent="Controls" unique_id=946684666]
+script = ExtResource("5_yl12s")
+
+[node name="ThirdPerson" type="Node3D" parent="Controls" unique_id=327037223]
+script = ExtResource("5_yl12s")
+
+[node name="TopDown" type="Node3D" parent="Controls" unique_id=2138925220]
+script = ExtResource("5_yl12s")
+
+[editable path="Character"]
+[editable path="Character/Cameras/ThirdPerson"]
+[editable path="Character/Cameras/FirstPerson"]
+[editable path="Character/Cameras/TopDown"]

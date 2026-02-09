@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://be3k855boct7x"]
+
+[ext_resource type="PackedScene" uid="uid://h4dd4crx4f04" path="res://characters/common/default_character/scene_character_default.tscn" id="1_ks2bu"]
+[ext_resource type="Material" uid="uid://bgnpvtp1tuask" path="res://characters/guard/material_character_guard.material" id="2_m1nty"]
+
+[node name="Guard" type="Node3D" unique_id=535323872]
+
+[node name="Character" parent="." unique_id=1838438385 instance=ExtResource("1_ks2bu")]
+
+[node name="MeshInstance3D" parent="Character" index="0" unique_id=1311074984]
+surface_material_override/0 = ExtResource("2_m1nty")
+
+[editable path="Character"]

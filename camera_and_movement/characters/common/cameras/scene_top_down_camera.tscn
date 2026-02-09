@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://4em71nxauobm"]
+
+[ext_resource type="Script" uid="uid://dqmx66n3w8sqa" path="res://characters/common/cameras/script_camera_pivot.gd" id="1_krt27"]
+[ext_resource type="Script" uid="uid://wuhlw1gwfyeu" path="res://characters/common/cameras/script_camera_arm.gd" id="2_jduos"]
+[ext_resource type="Script" uid="uid://jwihjuorx7wi" path="res://characters/common/cameras/script_camera_character.gd" id="3_tb60k"]
+
+[node name="TopDownPivot" type="Node3D" unique_id=742598129]
+script = ExtResource("1_krt27")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1767946346]
+script = ExtResource("2_jduos")
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1798984515]
+script = ExtResource("3_tb60k")
+
+[node name="Timer" type="Timer" parent="." unique_id=1147861753]
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

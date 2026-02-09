@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://h4dd4crx4f04"]
+
+[ext_resource type="Script" uid="uid://cr30d7o5vssxm" path="res://characters/common/default_character/script_character.gd" id="1_800mi"]
+[ext_resource type="ArrayMesh" uid="uid://d1aots2a4fqcl" path="res://characters/common/default_character/mesh_character_default.mesh" id="2_6v312"]
+[ext_resource type="PackedScene" uid="uid://whnxsv771mi" path="res://characters/common/cameras/scene_character_camera.tscn" id="3_kia7m"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_414ya"]
+radius = 0.3
+height = 0.9
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_5j3q3"]
+height = 0.9
+radius = 0.3
+
+[node name="CharacterDefault" type="CharacterBody3D" unique_id=1838438385]
+collision_layer = 16
+collision_mask = 17
+script = ExtResource("1_800mi")
+
+[node name="Body" type="CollisionShape3D" parent="." unique_id=1830987286]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.44923353, 0)
+shape = SubResource("CapsuleShape3D_414ya")
+debug_color = Color(0.8666667, 0.40784314, 0, 1)
+
+[node name="Head" type="CollisionShape3D" parent="." unique_id=1200163801]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3389981, -0.005478382)
+shape = SubResource("CylinderShape3D_5j3q3")
+debug_color = Color(0.9764706, 0, 0.42745098, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1311074984]
+transform = Transform3D(-0.6, 4.755451e-08, 3.1403255e-15, 0, -2.3777256e-08, 0.82177985, 5.2453668e-08, 0.5439602, 3.5921136e-08, 0, 0.03999996, 0)
+mesh = ExtResource("2_6v312")
+
+[node name="Cameras" type="Node3D" parent="." unique_id=933750991]
+
+[node name="ThirdPerson" parent="Cameras" unique_id=602635361 instance=ExtResource("3_kia7m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5022267, 1.4865005, 0.9879272)
+
+[node name="FirstPerson" parent="Cameras" unique_id=820341472 instance=ExtResource("3_kia7m")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2681297, -0.26652133)
+unlocked = true
+
+[node name="SpringArm3D" parent="Cameras/FirstPerson" index="0" unique_id=1288667542]
+spring_length = 0.0
+default_spring_length = 0.0
+max_length = 0.0
+
+[node name="Camera3D" parent="Cameras/FirstPerson/SpringArm3D" index="0" unique_id=757190504]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052523017, 0.005830854)
+
+[editable path="Cameras/ThirdPerson"]
+[editable path="Cameras/FirstPerson"]

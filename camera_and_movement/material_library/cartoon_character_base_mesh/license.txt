@@ -1,0 +1,11 @@
+Model Information:
+* title:	Cartoon Character Base Mesh
+* source:	https://sketchfab.com/3d-models/cartoon-character-base-mesh-30de486d04cc4883933480124af8ccea
+* author:	3Dimentional (https://sketchfab.com/insectscorch)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Cartoon Character Base Mesh" (https://sketchfab.com/3d-models/cartoon-character-base-mesh-30de486d04cc4883933480124af8ccea) by 3Dimentional (https://sketchfab.com/insectscorch) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://btt1aqb41ecph"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_isw7f"]
+size = Vector3(5, 2, 1)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bmj52"]
+load_path = "res://.godot/imported/texture_01.png-3220f45790b5b1130b31e425f7b46e21.s3tc.ctex"
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6bpgr"]
+albedo_texture = SubResource("CompressedTexture2D_bmj52")
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_37g37"]
+material = SubResource("StandardMaterial3D_6bpgr")
+size = Vector3(5, 2, 1)
+
+[node name="Wall" type="StaticBody3D" unique_id=228072388]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1441343238]
+shape = SubResource("BoxShape3D_isw7f")
+debug_color = Color(0.93462646, 0.21071827, 0.38028446, 0.41960785)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=730079566]
+mesh = SubResource("BoxMesh_37g37")

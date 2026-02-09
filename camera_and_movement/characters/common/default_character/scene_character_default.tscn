@@ -48,5 +48,17 @@ max_length = 0.0
 [node name="Camera3D" parent="Cameras/FirstPerson/SpringArm3D" index="0" unique_id=757190504]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.052523017, 0.005830854)
 
+[node name="TopDown" parent="Cameras" unique_id=1763206305 instance=ExtResource("3_kia7m")]
+tilt_limit = 0.4
+turn_limit = 0.2
+
+[node name="SpringArm3D" parent="Cameras/TopDown" index="0" unique_id=1288667542]
+transform = Transform3D(1, 0, 0, 0, 0.34202015, 0.9396926, 0, -0.9396926, 0.34202015, 0, 0, 0)
+spring_length = 5.0
+min_length = 3.0
+default_spring_length = 5.0
+max_length = 10.0
+
 [editable path="Cameras/ThirdPerson"]
 [editable path="Cameras/FirstPerson"]
+[editable path="Cameras/TopDown"]

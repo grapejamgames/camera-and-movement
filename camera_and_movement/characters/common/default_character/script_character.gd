@@ -3,15 +3,21 @@ extends CharacterBody3D
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
-enum {PREVIOUS_CAMERA = -1, NEXT_CAMERA, FIRST_CAMERA, SECOND_CAMERA, THIRD_CAMERA}
+enum {PREVIOUS_CAMERA = -1, NEXT_CAMERA, FIRST_PERSON, TOP_DOWN, THIRD_PERSON}
 
-@export_range(1, 3) var active_camera: int = 3
+@export_range(1, 3) var active_camera: int = THIRD_PERSON
 
-@onready var cameras : Array[Node] = [
-	get_node_or_null("Cameras/FirstPerson/SpringArm3D/Camera3D"),
-	get_node_or_null("Cameras/TopDown/SpringArm3D/Camera3D"),
-	get_node_or_null("Cameras/ThirdPerson/SpringArm3D/Camera3D")
-]
+@onready var cameras : Dictionary[int, Node] = {
+	FIRST_PERSON : get_node_or_null("Cameras/FirstPerson/SpringArm3D/Camera3D"),
+	TOP_DOWN : get_node_or_null("Cameras/TopDown/SpringArm3D/Camera3D"),
+	THIRD_PERSON : get_node_or_null("Cameras/ThirdPerson/SpringArm3D/Camera3D")
+}
+
+func _ready() -> void:
+	for key in cameras.keys():
+		if cameras[key] == null:
+			cameras.erase(key)
+	active_camera = clampi(active_camera, 0, cameras.size())
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
@@ -39,26 +45,29 @@ func rotate_character(rotation_delta : float) -> void:
 
 
 func switch_camera(camera_number : int = active_camera) -> void:
-	var cam_index = active_camera - 1
-	deactivate_camera(cameras[cam_index])
-	match camera_number:
-		PREVIOUS_CAMERA:
-			active_camera -= 1
-			if active_camera < 1:
-				active_camera = cameras.size()
-		NEXT_CAMERA:
-			active_camera += 1
-			if active_camera > cameras.size():
-				active_camera = 1
-		_:
-			active_camera = clampi(camera_number, 1, cameras.size())
+	if cameras.is_empty():
+		print("No cameras found")
+		return
 
-	cam_index = active_camera - 1
-	print(cameras[cam_index])
-	if cameras[cam_index]:
-		activate_camera(cameras[cam_index])
+	if cameras.size() > 1:
+		camera_number = clampi(camera_number, -1, cameras.size())
+		match camera_number:
+			PREVIOUS_CAMERA:
+				if active_camera == cameras.keys()[0]:
+					camera_number = cameras.keys()[-1]
+				else:
+					camera_number = active_camera - 1
+			NEXT_CAMERA:
+				if active_camera == cameras.keys()[-1]:
+					camera_number = cameras.keys()[0]
+				else:
+					camera_number = active_camera + 1
 	else:
-		activate_camera(cameras[0])
+		camera_number = 1
+
+	deactivate_camera(cameras.get(active_camera))
+	active_camera = camera_number
+	activate_camera(cameras.get(active_camera))
 
 
 func deactivate_camera(camera : Node) -> void:
@@ -69,3 +78,6 @@ func deactivate_camera(camera : Node) -> void:
 func activate_camera(camera : Node) -> void:
 	if camera:
 		camera.activate()
+	else:
+		switch_camera(NEXT_CAMERA)
+	

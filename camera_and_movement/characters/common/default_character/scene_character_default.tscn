@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cr30d7o5vssxm" path="res://characters/common/default_character/script_character.gd" id="1_800mi"]
 [ext_resource type="ArrayMesh" uid="uid://d1aots2a4fqcl" path="res://characters/common/default_character/mesh_character_default.mesh" id="2_6v312"]
-[ext_resource type="PackedScene" uid="uid://whnxsv771mi" path="res://characters/common/cameras/scene_character_camera.tscn" id="3_kia7m"]
+[ext_resource type="PackedScene" uid="uid://whnxsv771mi" path="res://characters/common/cameras/scene_camera_character.tscn" id="3_kia7m"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_414ya"]
 radius = 0.3
@@ -34,7 +34,11 @@ mesh = ExtResource("2_6v312")
 [node name="Cameras" type="Node3D" parent="." unique_id=933750991]
 
 [node name="ThirdPerson" parent="Cameras" unique_id=602635361 instance=ExtResource("3_kia7m")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5022267, 1.4865005, 0.9879272)
+transform = Transform3D(1, 0, 0, 0, 0.99999994, 0, 0, 0, 0.99999994, 0.55, 1.42, 0)
+turn_limit = 2.0
+
+[node name="SpringArm3D" parent="Cameras/ThirdPerson" index="0" unique_id=1288667542]
+min_length = 1.0
 
 [node name="FirstPerson" parent="Cameras" unique_id=820341472 instance=ExtResource("3_kia7m")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2681297, -0.26652133)
@@ -42,7 +46,6 @@ unlocked = true
 
 [node name="SpringArm3D" parent="Cameras/FirstPerson" index="0" unique_id=1288667542]
 spring_length = 0.0
-default_spring_length = 0.0
 max_length = 0.0
 
 [node name="Camera3D" parent="Cameras/FirstPerson/SpringArm3D" index="0" unique_id=757190504]
@@ -56,7 +59,6 @@ turn_limit = 0.2
 transform = Transform3D(1, 0, 0, 0, 0.34202015, 0.9396926, 0, -0.9396926, 0.34202015, 0, 0, 0)
 spring_length = 5.0
 min_length = 3.0
-default_spring_length = 5.0
 max_length = 10.0
 
 [editable path="Cameras/ThirdPerson"]

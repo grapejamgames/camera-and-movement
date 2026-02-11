@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://whnxsv771mi"]
 
-[ext_resource type="Script" uid="uid://dqmx66n3w8sqa" path="res://characters/common/cameras/script_camera_pivot.gd" id="1_pg5ga"]
-[ext_resource type="Script" uid="uid://wuhlw1gwfyeu" path="res://characters/common/cameras/script_camera_arm.gd" id="2_ffik8"]
+[ext_resource type="Script" uid="uid://dqmx66n3w8sqa" path="res://characters/common/cameras/script_camera_character_pivot.gd" id="1_pg5ga"]
+[ext_resource type="Script" uid="uid://wuhlw1gwfyeu" path="res://characters/common/cameras/script_camera_character_arm.gd" id="2_ffik8"]
 [ext_resource type="Script" uid="uid://jwihjuorx7wi" path="res://characters/common/cameras/script_camera_character.gd" id="3_bpska"]
 
 [node name="Pivot" type="Node3D" unique_id=602635361]

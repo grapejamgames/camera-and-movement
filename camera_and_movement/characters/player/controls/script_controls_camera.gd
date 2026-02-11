@@ -31,18 +31,15 @@ func _input(event: InputEvent) -> void:
 		pivot.unlocked = not pivot.unlocked
 	if spring_arm:
 		if event.is_action_pressed("zoom_in"):
-			spring_arm.move_target_closer()
+			spring_arm.zoom_in()
 		if event.is_action_pressed("zoom_out"):
-			spring_arm.move_target_farther()
+			spring_arm.zoom_out()
 
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouselook implemented using `screen_relative` for resolution-independent sensitivity.
 	if event is InputEventMouseMotion :
-		if (pivot.free_look or pivot.unlocked):
-			if pivot.auto_align:
-				pivot.reset_wind_up()
-			pivot.rotate_camera(event.screen_relative * mouse_sensitivity * .001)
+		pivot.follow_mouse(event.screen_relative * mouse_sensitivity * .001)
 
 
 func _on_camera_deactivated() -> void:

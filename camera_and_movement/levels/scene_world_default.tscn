@@ -24,6 +24,7 @@ tonemap_mode = 2
 environment = SubResource("Environment_c1maj")
 
 [node name="Platform" parent="." unique_id=1835126572 instance=ExtResource("1_4n055")]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, -5.4355125, 0)
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=721064243]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 9, 0)

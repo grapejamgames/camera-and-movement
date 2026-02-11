@@ -1,20 +1,27 @@
+## A Camera3D at the end of a pivot and spring arm
+##
+## Used in default character
 class_name CharacterCamera
 
 extends Camera3D
 
+## Emitted at the end of deactivate()
 signal deactivated
+## Emitted at the end of activate()
 signal activated
 
-# Move the pivot instead of the camera itself
-func rotate_camera(to_position : Vector2) -> void:
-	get_parent().get_parent().rotate_camera(to_position)
+@onready var pivot = get_node_or_null("../../")
+@onready var arm = get_node_or_null("../")
 
-
+## Emits a signal when camera becomes current
+## Does not check for success
 func activate() -> void:
 	make_current()
 	activated.emit()
 
 
+## Emits a signal when camera stops being current
+## Does not check for success
 func deactivate() -> void:
 	clear_current()
 	deactivated.emit()

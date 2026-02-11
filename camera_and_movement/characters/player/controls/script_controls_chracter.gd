@@ -32,8 +32,8 @@ func _physics_process(_delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouselook implemented using `screen_relative` for resolution-independent sensitivity.
-	if event is InputEventMouseMotion and not cursor_activated :
-		character.rotate_character(event.screen_relative.x * mouse_sensitivity * .001)
+	if event is InputEventMouseMotion and not cursor_activated:
+		character.follow_mouse(event.screen_relative * mouse_sensitivity * .001)
 
 
 func _input(event : InputEvent) -> void:

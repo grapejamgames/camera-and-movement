@@ -1,19 +1,29 @@
+## Input handling for camera pivot, spring arm, and camera. 
 class_name CameraControls
 
 extends Node3D
 
+## The speed at which the camera moves around
 @export_range(1, 10) var mouse_sensitivity : int = 4
-@export var camera_name : String
 
+## The controls rely on a pivot with a spring arm child that has a camera3d child.
+## This references that pivot
 @onready var pivot : Node = get_node_or_null("../../Character/Cameras/%s" % name)
 
+## The controls rely on a pivot with a spring arm child that has a camera3d child.
+## This references that spring arm
 var spring_arm : Node
+
+## The controls rely on a pivot with a spring arm child that has a camera3d child.
+## This references that camera
 var camera : Node
 
 
 func _ready() -> void:
+	# start deactivated.
+	_on_camera_deactivated()
 	if not pivot:
-		set_process_mode(PROCESS_MODE_DISABLED)
+		_on_camera_deactivated()
 	else:
 		spring_arm = pivot.get_child(0)
 		camera = spring_arm.get_child(0)
@@ -42,9 +52,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		pivot.follow_mouse(event.screen_relative * mouse_sensitivity * .001)
 
 
+## Deactivates camera and stops processing physics, input, etc...
 func _on_camera_deactivated() -> void:
 	set_process_mode(PROCESS_MODE_DISABLED)
 
-
+## Activates camera and starts processing physics, input, etc...
 func _on_camera_activated() -> void:
 	set_process_mode(PROCESS_MODE_INHERIT)

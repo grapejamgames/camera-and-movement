@@ -1,8 +1,14 @@
 extends Node3D
 
-@export_range(1, 10) var mouse_sensitivity : int = 1
+## The speed at which the the character turns with the mouse
+@export_range(0.0, 10.0) var mouse_sensitivity : float = 1
+## The initial mouse movement ignored
+@export var mouse_x_deadzone : float = 0
+## if true, camera movement by mouse stops and the cursor becomes active
 @export var cursor_activated : bool = false
 
+## This script is intended to be in a child of a Controls node, which is a child of a character
+## This variable gets that character
 @onready var character = get_node("../../Character")
 
 func _ready() -> void:
@@ -11,6 +17,8 @@ func _ready() -> void:
 		set_process(false)
 
 	toggle_mouse_mode(false)
+
+	mouse_x_deadzone *= mouse_sensitivity
 
 
 func _physics_process(_delta: float) -> void:
@@ -33,8 +41,16 @@ func _physics_process(_delta: float) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	# Mouselook implemented using `screen_relative` for resolution-independent sensitivity.
 	if event is InputEventMouseMotion and not cursor_activated:
-		character.follow_mouse(event.screen_relative * mouse_sensitivity * .001)
+		if character.mouse_turn_enabled:
+			var mouse_x = apply_deadzone(event.screen_relative.x * 0.001 * mouse_sensitivity, mouse_x_deadzone)
+			character.turn(mouse_x)
 
+## This method used when mouse input is detected and ignores input within the + or - deadzone
+func apply_deadzone(value : float, deadzone : float) -> float:
+	if (value < 0 and value > -deadzone) or (value > 0 and value < deadzone):
+		return 0
+	else:
+		return value
 
 func _input(event : InputEvent) -> void:
 	if event.is_action_pressed("activate_cursor"):
@@ -53,6 +69,7 @@ func _input(event : InputEvent) -> void:
 	# 	character.switch_camera(character.THIRD_CAMERA)
 
 
+## toggles the cursor visibility
 func toggle_mouse_mode(toggle_cursor : bool = true) -> void:
 	if toggle_cursor:
 		cursor_activated = not cursor_activated
@@ -63,6 +80,7 @@ func toggle_mouse_mode(toggle_cursor : bool = true) -> void:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
+## Allows the cursor to escape the game window
 func pause() -> void:
 	cursor_activated = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

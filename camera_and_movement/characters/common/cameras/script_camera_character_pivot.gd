@@ -34,7 +34,8 @@ var delay_timer_expired : bool = false
 
 
 func _ready() -> void:
-	delay_timer.wait_time = reset_delay
+	if reset_delay:
+		delay_timer.wait_time = reset_delay
 	if not delay_timer.timeout.is_connected(_on_timer_timeout):
 		delay_timer.timeout.connect(_on_timer_timeout)
 
